@@ -20,3 +20,6 @@ A user goes to http://insitu.io and they can immediately submit content through 
 
 The content is then processed by Google App Engine's servers. All the words are tokenized and inserted into [App Engine's full text search service](http://googleappengine.blogspot.it/2012/05/looking-for-search-find-it-on-google.html). This will allow us to make this content available for in-depth search through our website, using Google's powerful search infrastructure.
 
+Here's a first prototype screen to show you how it may look:
+
+![](screen1.png)
