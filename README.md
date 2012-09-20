@@ -22,4 +22,4 @@ The content is then processed by Google App Engine's servers. All the words are 
 
 Here's a first prototype screen to show you how it may look:
 
-![](insitu.io/screen1.png)
+![](https://raw.github.com/bioversity/insitu.io/master/screen1.png)
