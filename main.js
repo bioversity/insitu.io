@@ -1,14 +1,26 @@
-var apejs = require("apejs.js");
-
-var mustache = require("./common/mustache.js");
+var apejs = require('apejs.js')
+var mustache = require('./common/mustache.js')
+var gdrive = require('./gdrive.js')
 
 apejs.urls = {
-    "/": {
+    '/': {
         get: function(req, res) {
-            var html = mustache.to_html(render("skins/index.html"), {}, {})
+            var html = mustache.to_html(render('skins/index.html'), {}, {})
             print(res).html(html)
         }
+    },
+
+    /**
+     * This service loads data from a Google Drive.
+     * Shouldn't be a Public API
+     */
+    '/get-files': {
+        get: function(req, res) {
+            var g = new gdrive
+            print(res).html(g.getData())
+        }
     }
+
 };
 
 // simple syntax sugar
