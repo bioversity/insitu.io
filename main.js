@@ -5,16 +5,26 @@ var mustache = require("./common/mustache.js");
 apejs.urls = {
     "/": {
         get: function(req, res) {
-            print(res).text('Hello World')
+            var html = mustache.to_html(render("skins/index.html"), {}, {})
+            print(res).html(html)
         }
     }
 };
 
 // simple syntax sugar
 function print(response) {
+    response.setCharacterEncoding("UTF-8");
     return {
-        text: function(text) {
-            if(text) response.getWriter().println(text);
+        html: function(html) {
+            if(response == null) return;
+            response.setContentType("text/html");
+            response.getWriter().println(html);
+        },
+        json: function(j) {
+            if(response == null) return;
+            var jsonString = JSON.stringify(j);
+            response.setContentType("application/json");
+            response.getWriter().println(jsonString);
         }
     };
 }
