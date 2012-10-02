@@ -17,7 +17,7 @@ apejs.urls = {
     '/get-files': {
         get: function(req, res) {
             var g = new gdrive
-            print(res).html(g.getData())
+            print(res).json(g.getData())
         }
     }
 
