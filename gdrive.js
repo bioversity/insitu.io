@@ -1,6 +1,53 @@
+importPackage(java.net);
+importPackage(java.io);
+importPackage(java.lang);
+importPackage(com.google.appengine.api.appidentity);
+
+var secrets = require('./secrets.js')
+
 exports = gdrive = function() {
 };
 
 gdrive.prototype.getData = function() {
-    return 23;
+  return secrets.web.client_id;
+}
+gdrive.prototype.createShortUrl = function() {
+    var result = '';
+    try {
+        var scopes = new java.util.ArrayList();
+        scopes.add("https://www.googleapis.com/auth/urlshortener");
+        var appIdentity = AppIdentityServiceFactory.getAppIdentityService();
+        var accessToken = appIdentity.getAccessToken(scopes);
+        // The token asserts the identity reported by appIdentity.getServiceAccountName()
+
+        // send request
+        var url = new URL("https://www.googleapis.com/urlshortener/v1/url?pp=1");
+        var connection = url.openConnection();
+        connection.setDoOutput(true);
+        connection.setRequestMethod("POST");
+        connection.addRequestProperty("Content-Type", "application/json");
+        connection.addRequestProperty("Authorization", "OAuth " + accessToken.getAccessToken());
+        var writer = new OutputStreamWriter(connection.getOutputStream());
+
+        // write parameters
+        writer.write('longUrl=http://cacca.com');
+        writer.flush();
+
+        // get the response 
+        var answer = new StringBuffer();
+        var reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+        var line;
+        while ((line = reader.readLine()) != null) {
+            answer.append(line);
+        }
+        writer.close();
+        reader.close();
+
+        result = answer.toString();
+
+    } catch (e) {
+        // Error handling elided.
+        throw e;
+    }
+    return result;
 }
