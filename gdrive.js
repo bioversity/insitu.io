@@ -3,7 +3,6 @@ importPackage(java.io);
 importPackage(java.lang);
 importPackage(com.google.appengine.api.appidentity);
 
-var secrets = require('./secrets.js')
 
 exports = gdrive = function() {
 };
@@ -15,23 +14,23 @@ gdrive.prototype.createShortUrl = function() {
     var result = '';
     try {
         var scopes = new java.util.ArrayList();
-        scopes.add("https://www.googleapis.com/auth/urlshortener");
+        scopes.add("https://www.googleapis.com/auth/drive");
         var appIdentity = AppIdentityServiceFactory.getAppIdentityService();
         var accessToken = appIdentity.getAccessToken(scopes);
         // The token asserts the identity reported by appIdentity.getServiceAccountName()
 
         // send request
-        var url = new URL("https://www.googleapis.com/urlshortener/v1/url?pp=1");
+        var url = new URL("https://www.googleapis.com/drive/v2/files");
         var connection = url.openConnection();
         connection.setDoOutput(true);
-        connection.setRequestMethod("POST");
+        connection.setRequestMethod("GET");
         connection.addRequestProperty("Content-Type", "application/json");
         connection.addRequestProperty("Authorization", "OAuth " + accessToken.getAccessToken());
-        var writer = new OutputStreamWriter(connection.getOutputStream());
+        //var writer = new OutputStreamWriter(connection.getOutputStream());
 
-        // write parameters
-        writer.write('longUrl=http://cacca.com');
-        writer.flush();
+        // write parameters for POST
+        //writer.write('{"longUrl": "http://lucaa.org"}');
+        //writer.flush();
 
         // get the response 
         var answer = new StringBuffer();
@@ -40,7 +39,7 @@ gdrive.prototype.createShortUrl = function() {
         while ((line = reader.readLine()) != null) {
             answer.append(line);
         }
-        writer.close();
+        //writer.close();
         reader.close();
 
         result = answer.toString();
