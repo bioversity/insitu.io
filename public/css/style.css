@@ -63,7 +63,7 @@ label a {
     margin-right: auto;
     margin-bottom: 0;
     padding: 0;
-    position: relative;
+    position: fixed;
     top: 0;
     left: 0;
     width: 400px;
@@ -71,6 +71,7 @@ label a {
 body.register-mini .content {
     margin: -218px 0 0 0;
     position: absolute;
+    position: fixed;
     top: 50%;
     left: 10%;
     width: 250px;
@@ -583,6 +584,14 @@ transform: matrix3d(1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1);
     -webkit-transform: matrix3d(0.9,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1);
     -moz-transform: matrix3d(0.9,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1);
     transform: matrix3d(0.9,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1);
+}
+
+.thumbs {
+  position: absolute;
+  width: 900px;
+  top: 0;
+  left: 50%;
+  margin-left: -240px;
 }
 
 /* stuff in here gets only loaded on iPad 
