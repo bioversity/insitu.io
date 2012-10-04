@@ -20,7 +20,6 @@ apejs.urls = {
       print(res).html(g.createShortUrl())
     }
   }
-
 };
 
 // simple syntax sugar

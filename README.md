@@ -12,13 +12,15 @@ This is to be considered a [Minimum Viable Product](http://en.wikipedia.org/wiki
 ## Features
 
 * Allow people to search and explore in-situ related data.
-* Allow anyone to submit content quickly and easily. No signup forms.
+* Allow anyone to submit content quickly and easily. Easy signup form so that we can record and see who's using our product.
 
 ## How?
 
 A user goes to http://insitu.io and they can immediately submit content through a SUBMIT button. A little form pops open, and they can either choose to upload a file (image, PDF, excel, etc.), or they can choose to submit a link.
 
-The content is then processed by Google App Engine's servers. All the words are tokenized and inserted into [App Engine's full text search service](http://googleappengine.blogspot.it/2012/05/looking-for-search-find-it-on-google.html). This will allow us to make this content available for in-depth search through our website, using Google's powerful search infrastructure.
+The content is uploaded in the background into a Google Drive account, using the Google Drive API. This allows us to get metadata of the files, things such as the thumbnail images, and it allows us to use the [Drive search API](https://developers.google.com/drive/v2/reference/files/list) so that we can search inside PDF files for example. All of the Drive functionality is given to us for free, so taht we don't have to worry about processing the files ourselves.
+
+The app is meant to be a simple interface around a Google Drive account.
 
 Here's a first prototype screen to show you how it may look:
 
