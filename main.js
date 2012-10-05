@@ -10,6 +10,12 @@ apejs.urls = {
     }
   },
 
+  '/fileupload': {
+    get: function(req, res) {
+      var html = mustache.to_html(render('skins/fileupload.html'), {}, {})
+      print(res).html(html)
+    }
+  },
   /**
    * This service loads data from a Google Drive.
    * Shouldn't be a Public API
