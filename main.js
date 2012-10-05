@@ -1,4 +1,6 @@
 var apejs = require('apejs.js')
+var googlestore = require('googlestore.js')
+var select = require('select.js')
 var mustache = require('./common/mustache.js')
 var gdrive = require('./gdrive.js')
 var blobstore = require('./blobstore.js')
@@ -19,11 +21,22 @@ apejs.urls = {
       print(res).html(html)
     }
   },
+  '/get-files': {
+    get: function(req, res) {
+      var files = [];
+      select('file')
+        .find()
+        .limit(10)
+        .values(function(values) { files = values })
+
+      print(res).json(files)
+    }
+  },
   /**
    * This service loads data from a Google Drive.
    * Shouldn't be a Public API
    */
-  '/get-files': {
+  '/get-gdrive-files': {
     get: function(req, res) {
       var g = new gdrive
       print(res).html(g.createShortUrl())
@@ -43,7 +56,15 @@ apejs.urls = {
     post: function(req, res) {
       var blobs = blobService.getUploadedBlobs(req)
       var blobKey = blobs.get('files[]')
-      res.sendRedirect("/rest/file/" + blobKey.getKeyString() + "/meta")
+      var blobKeyString = blobKey.getKeyString()
+
+      // add it to datastore
+      var e = googlestore.entity('file', {
+        'blobKeyString': blobKeyString
+      })
+      googlestore.put(e)
+
+      res.sendRedirect("/rest/file/" + blobKeyString + "/meta")
     }
   },
   '/rest/file/(.*)/meta': {

@@ -27,21 +27,29 @@ var thumbs = (function() {
 
   function init(contSel, max_height) {
     var size = $(contSel).width();
+    var $thumbs = $('.thumbs')
 
-    var images = $('img');
-    w: while (images.length > 0) {
-      for (var i = 1; i < images.length + 1; ++i) {
-        var slice = images.slice(0, i);
-        var h = getheight(slice, size);
-        if (h < max_height) {
-          setheight(slice, h);
-          images = images.slice(i);
-          continue w;
-        }
+    $.getJSON('/get-files', function(files) {
+      for(var i in files) {
+        var domImg = $('<img src="/rest/file/'+files[i].blobKeyString+'" />')
+        $thumbs.append(domImg)
       }
-      setheight(slice, Math.min(max_height, h));
-      break;
-    }
+      var images = $('.thumbs img')
+      w: while (images.length > 0) {
+        for (var i = 1; i < images.length + 1; ++i) {
+          var slice = images.slice(0, i);
+          var h = getheight(slice, size);
+          if (h < max_height) {
+            setheight(slice, h);
+            images = images.slice(i);
+            continue w;
+          }
+        }
+        setheight(slice, Math.min(max_height, h));
+        break;
+      }
+      
+    })
   }
 
   return { init: init }
