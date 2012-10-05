@@ -99,6 +99,7 @@ form {
     font-weight: 100;
 }
 .content .logo a:hover {
+  text-decoration: none;
 }
 
 .content h2 {
@@ -355,6 +356,9 @@ vertical-align: baseline;
 font-size: 15px;
 padding: 7px 8px;
 width: 400px;
+}
+input.text {
+  height: auto;
 }
 input.text:focus {
     border-color: rgba(132, 185, 211, 0.8)!important;
