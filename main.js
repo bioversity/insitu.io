@@ -1,6 +1,9 @@
 var apejs = require('apejs.js')
 var mustache = require('./common/mustache.js')
 var gdrive = require('./gdrive.js')
+var blobstore = require('./blobstore.js')
+var blobService = blobstore.service
+var blobInfoFactory = blobstore.blobInfoFactory
 
 apejs.urls = {
   '/': {
@@ -24,6 +27,46 @@ apejs.urls = {
     get: function(req, res) {
       var g = new gdrive
       print(res).html(g.createShortUrl())
+    }
+  },
+
+  /**
+   * REST API for fileupload
+   */
+  '/rest/file/url': {
+    get: function(req, res) {
+      var url = blobService.createUploadUrl("/rest/file")
+      print(res).json(''+url)
+    }
+  },
+  '/rest/file': {
+    post: function(req, res) {
+      var blobs = blobService.getUploadedBlobs(req)
+      var blobKey = blobs.get('files[]')
+      res.sendRedirect("/rest/file/" + blobKey.getKeyString() + "/meta")
+    }
+  },
+  '/rest/file/(.*)/meta': {
+    get: function(req, res, matches) {
+      var key = matches[1]
+      var blobKey = new BlobKey(key)
+      var info = blobInfoFactory.loadBlobInfo(blobKey);
+
+      var ret = [{
+        name: ''+info.getFilename(),
+        size: ''+info.getSize(),
+        url: "/rest/file/" + key
+      }]
+      print(res).json(ret)
+    }
+  },
+  '/rest/file/(.*)': {
+    get: function(req, res, matches) {
+      var key = matches[1]
+      var blobKey = new BlobKey(key)
+      var blobInfo = blobInfoFactory.loadBlobInfo(blobKey)
+      res.setHeader("Content-Disposition", "attachment; filename=" + blobInfo.getFilename())
+      blobService.serve(blobKey, res)
     }
   }
 };
