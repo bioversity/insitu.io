@@ -14,6 +14,15 @@ apejs.urls = {
       print(res).html(html)
     }
   },
+  '/read-headers': {
+    get: function(req, res) {
+      var headerNames = req.getHeaderNames()
+      while(headerNames.hasMoreElements()) {
+        var headerName = headerNames.nextElement()
+        print(res).html(''+headerName+': '+ req.getHeader(headerName) +'<br>')
+      }
+    }
+  },
 
   '/fileupload': {
     get: function(req, res) {

@@ -35,6 +35,7 @@ var thumbs = (function() {
         $thumbs.append(domImg)
       }
       var images = $('.thumbs img')
+      console.log(images)
       w: while (images.length > 0) {
         for (var i = 1; i < images.length + 1; ++i) {
           var slice = images.slice(0, i);

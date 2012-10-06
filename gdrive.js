@@ -22,11 +22,12 @@ gdrive.prototype.createShortUrl = function() {
         // The token asserts the identity reported by appIdentity.getServiceAccountName()
 
         // send request
+        //var url = new URL("http://insitu-io.appspot.com/read-headers");
         var url = new URL("https://www.googleapis.com/drive/v2/files");
         //var url = new URL("https://www.googleapis.com/urlshortener/v1/url/history");
         var connection = url.openConnection();
-        connection.setDoOutput(true);
-        connection.setRequestMethod("GET");
+        //connection.setDoOutput(true);
+        //connection.setRequestMethod("GET");
         connection.addRequestProperty("Content-Type", "application/json");
         connection.addRequestProperty("Authorization", "Bearer " + accessToken.getAccessToken());
         //var writer = new OutputStreamWriter(connection.getOutputStream());
