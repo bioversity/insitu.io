@@ -49,7 +49,7 @@ $(function () {
               $this.fileupload('send', data);
             });
             return false;
-        } 
+        }
     });
     
 

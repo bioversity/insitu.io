@@ -4,6 +4,8 @@ var select = require('select.js')
 var mustache = require('./common/mustache.js')
 var gdrive = require('./gdrive.js')
 var blobstore = require('./blobstore.js')
+var images = require('./images.js')
+
 var blobService = blobstore.service
 var blobInfoFactory = blobstore.blobInfoFactory
 
@@ -41,6 +43,24 @@ apejs.urls = {
       print(res).json(files)
     }
   },
+  '/get-serving-urls': {
+    get: function(req, res) {
+      var servingUrls = [];
+      select('file')
+        .find()
+        .sort('createdAt', 'DESC')
+        .limit(100)
+        .each(function() { 
+          var blobKey = new BlobKey(this.blobKeyString)
+          var options = ServingUrlOptions.Builder.withBlobKey(blobKey)
+          var url = images.service.getServingUrl(options)
+
+          servingUrls.push(''+url)
+        })
+      
+      print(res).json(servingUrls)
+    }
+  },
   /**
    * This service loads data from a Google Drive.
    * Shouldn't be a Public API
@@ -69,6 +89,7 @@ apejs.urls = {
 
       // add it to datastore
       var e = googlestore.entity('file', {
+        'createdAt': new java.util.Date(),
         'blobKeyString': blobKeyString
       })
       googlestore.put(e)

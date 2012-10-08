@@ -1,4 +1,4 @@
-@import url(http://fonts.googleapis.com/css?family=Open+Sans:300,400,700);
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:300,400,700|Racing+Sans+One);
 
 html, body {
     margin: 0;
@@ -56,6 +56,19 @@ label a {
     float: right;
 }
 
+img {
+position: relative;
+display: block;
+margin: 10px;
+float: left;
+-webkit-border-radius: 4px;
+-moz-border-radius: 4px;
+border-radius: 4px;
+-webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+-moz-box-shadow: 0 1px 2px rgba(0,0,0,0.4);
+box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+
+}
 
 .content {
     margin-top: 23px;
@@ -88,7 +101,7 @@ form {
 
 }
 .content .logo a, .upper a{
-    color: #39a446;
+    color: #007BC7;
     font-weight: 800;
     -webkit-transition: color .3s linear;
     -moz-transition: color .3s linear;
@@ -97,6 +110,7 @@ form {
     transition: color .3s linear;
 }
 .content .logo a{
+    font-family: 'Racing Sans One';
     font-size: 70px;
     font-weight: 100;
 }
@@ -595,7 +609,7 @@ transform: matrix3d(1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1);
 
 .thumbs {
   position: absolute;
-  width: 900px;
+  width: 810px;
   top: 0;
   left: 50%;
   margin-left: -240px;
@@ -607,19 +621,6 @@ transform: matrix3d(1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1);
 /* stuff in here gets only loaded on iPad 
  * or bigger devices (computers) */
 @media only screen and (min-width: 767px) {
-    .devices .shadow {
-        background: url(/img/bg-shadows.png) -1000px -1000px no-repeat;
-    }
-    .devices .device {
-        background: url(/img/bg-devices.png) -1000px -1000px no-repeat;
-    }
-    .devices .device.ipad .img-slide {
-        background-image: url(/img/ipad.jpg);
-
-    }
-    .devices .device.iphone .img-slide {
-        background-image: url(/img/iphone.jpg);
-    }
 }
 
 
@@ -646,6 +647,13 @@ transform: matrix3d(1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1);
         top: 0 !important;
         left: 0 !important;
         width: 250px !important;
+    }
+    .thumbs {
+        position: relative !important;
+        top: 0 !important;
+        left: 0 !important;
+        margin-left: 0 !important;
+        width: 100%;
     }
     form {
         width: 250px !important;
