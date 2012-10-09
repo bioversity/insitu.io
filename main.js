@@ -84,7 +84,7 @@ apejs.urls = {
   '/rest/file': {
     post: function(req, res) {
       var blobs = blobService.getUploadedBlobs(req)
-      var blobKey = blobs.get('files[]')
+      var blobKey = blobs.get('file')
       var blobKeyString = blobKey.getKeyString()
 
       // add it to datastore
@@ -94,7 +94,7 @@ apejs.urls = {
       })
       googlestore.put(e)
 
-      res.sendRedirect("/rest/file/" + blobKeyString + "/meta")
+      //res.sendRedirect("/rest/file/" + blobKeyString + "/meta")
     }
   },
   '/rest/file/(.*)/meta': {
