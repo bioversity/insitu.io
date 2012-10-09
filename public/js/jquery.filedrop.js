@@ -291,6 +291,18 @@
       var send = function(e) {
         // we're calling the AppEngine url for each
         // file we're uploading
+
+        // Sometimes the index is not attached to the
+        // event object. Find it by size. Hack for sure.
+        if (e.target.index === undefined) {
+          e.target.index = getIndexBySize(e.total);
+        }
+
+        var file = files[e.target.index],
+              index = e.target.index;
+
+        opts.uploadStarted(index, file, files_count);
+
         $.ajax({
           url: '/rest/file/url', 
           dataType: 'json',
@@ -302,16 +314,8 @@
         function resend(url) {
           var fileIndex = ((typeof(e.srcElement) === "undefined") ? e.target : e.srcElement).index;
 
-          // Sometimes the index is not attached to the
-          // event object. Find it by size. Hack for sure.
-          if (e.target.index === undefined) {
-            e.target.index = getIndexBySize(e.total);
-          }
-
           var xhr = new XMLHttpRequest(),
               upload = xhr.upload,
-              file = files[e.target.index],
-              index = e.target.index,
               start_time = new Date().getTime(),
               boundary = '------multipartformboundary' + (new Date()).getTime(),
               global_progress_index = global_progress.length,
@@ -347,7 +351,6 @@
           global_progress[global_progress_index] = 0;
           globalProgress();
 
-          opts.uploadStarted(index, file, files_count);
 
           xhr.onload = function() {
             var serverResponse = null;
