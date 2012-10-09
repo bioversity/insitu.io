@@ -49,7 +49,7 @@ apejs.urls = {
       select('file')
         .find()
         .sort('createdAt', 'DESC')
-        .limit(100)
+        .limit(9)
         .each(function() { 
           try {
             var blobKey = new BlobKey(this.blobKeyString)
