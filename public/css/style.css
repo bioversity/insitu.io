@@ -673,6 +673,33 @@ transform: matrix3d(1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1);
 .preview.done .progress{
 	width:100% !important;
 }
+.block {
+background: whiteSmoke;
+-moz-border-radius: 5px;
+-webkit-border-radius: 5px;
+border-radius: 5px;
+-webkit-box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+-moz-box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+-o-box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+position: relative;
+
+left: 10;
+bottom: 10;
+position: absolute;
+
+
+
+padding: 5px;
+text-shadow: white 0px 1px 0px;
+color: #3A3A3A;
+font-weight: bold;
+font-size: 12px;
+word-wrap: break-word;
+font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+
+}
+
 
 
 /* stuff in here gets only loaded on iPad 

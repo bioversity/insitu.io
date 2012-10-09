@@ -18,6 +18,8 @@ var thumbs = {
     }
     if(src) $div.append($img)
 
+    $div.append('<div class="block">Ciao Pippa</div>')
+
     if(prepend) {
       thumbs.cont.prepend($div)
     } else {
