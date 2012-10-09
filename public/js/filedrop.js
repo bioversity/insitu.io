@@ -66,6 +66,7 @@ var filedrop = {
       },
       
       progressUpdated: function(i, file, progress) {
+        console.log(progress)
         var $cur = $.data(file)
         var $prog = $cur.find('.progress')
         if(!$prog.length) {

@@ -96,7 +96,7 @@ apejs.urls = {
       })
       googlestore.put(e)
 
-      //res.sendRedirect("/rest/file/" + blobKeyString + "/meta")
+      res.sendRedirect("/rest/file/" + blobKeyString + "/meta")
     }
   },
   '/rest/file/(.*)/meta': {
