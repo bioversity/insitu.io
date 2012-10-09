@@ -637,6 +637,44 @@ transform: matrix3d(1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1);
   width: 100px;
 }
 
+
+/*-------------------------
+	Progress Bars
+--------------------------*/
+
+
+
+.progressHolder{
+	position: absolute;
+	background-color:#252f38;
+	height:12px;
+	width:100%;
+	left:0;
+	bottom: 0;
+	
+	box-shadow:0 0 2px #000;
+}
+
+.progress{
+	background-color:#2586d0;
+	position: absolute;
+	height:100%;
+	left:0;
+	width:0;
+	
+	box-shadow: 0 0 1px rgba(255, 255, 255, 0.4) inset;
+	
+	-moz-transition:0.25s;
+	-webkit-transition:0.25s;
+	-o-transition:0.25s;
+	transition:0.25s;
+}
+
+.preview.done .progress{
+	width:100% !important;
+}
+
+
 /* stuff in here gets only loaded on iPad 
  * or bigger devices (computers) */
 @media only screen and (min-width: 767px) {

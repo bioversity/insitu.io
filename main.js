@@ -51,11 +51,13 @@ apejs.urls = {
         .sort('createdAt', 'DESC')
         .limit(100)
         .each(function() { 
-          var blobKey = new BlobKey(this.blobKeyString)
-          var options = ServingUrlOptions.Builder.withBlobKey(blobKey)
-          var url = images.service.getServingUrl(options)
+          try {
+            var blobKey = new BlobKey(this.blobKeyString)
+            var options = ServingUrlOptions.Builder.withBlobKey(blobKey)
+            var url = images.service.getServingUrl(options)
 
-          servingUrls.push(''+url)
+            servingUrls.push(''+url)
+          } catch(e) {}
         })
       
       print(res).json(servingUrls)

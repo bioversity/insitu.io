@@ -2,6 +2,7 @@ var filedrop = {
   dragging: false,
   bindFiledrop: function() {
     $(document).filedrop({
+      fallback_id: 'upload_button',
       // The name of the $_FILES entry:
       paramname:'file',
       
@@ -11,14 +12,14 @@ var filedrop = {
       dragOver: function() {
         // user dragging files over #dropzone
         if(!filedrop.dragging) {
-          thumbs.addThumb(false, true)
+          thumbs.addPreview()
         }
         filedrop.dragging = true
       },
       docLeave: function() {
         // user dragging files out of #dropzone
         if(!filedrop.dropped) {
-          thumbs.removeThumb()
+          thumbs.removePreview()
         }
         filedrop.dragging = false
         filedrop.dropped = false
@@ -65,6 +66,16 @@ var filedrop = {
       },
       
       progressUpdated: function(i, file, progress) {
+        var $cur = $.data(file)
+        var $prog = $cur.find('.progress')
+        if(!$prog.length) {
+          var temp = '<div class="progressHolder">'+
+                      '<div class="progress"></div>'+
+                      '</div>';
+          $cur.append(temp)
+          $prog = $cur.find('.progress')
+        }
+        $prog.css({ width: progress + '%' })
       }
          
     });
