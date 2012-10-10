@@ -1,36 +1,29 @@
 var thumbs = {
   cont: null, // container
-  onLeft: true,
+  left: null,
+  right: null,
   getRandomInt: function(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   },
   
   addThumb: function(src, prepend) {
     var maxThumbSize = 500;
-    var contWidth = thumbs.cont.width() - 100 
-
-    // make it 2 columns
-    var width = contWidth / 2
-
     var $img = $('<img>').attr({
       src: src
     }).appendTo('.thumbs').css({ display: 'none' })
 
-
     var $div = $('<div class="thumb"></div>')
     $div.css({
-      width: width,
-      height: maxThumbSize,
+      height: maxThumbSize
     })
     $div.append('<div class="block">Ciao Pippa</div>')
 
     var cont;
-    if(this.onLeft) {
-      cont = $('.thumbs_left') 
-      this.onLeft = false
+
+    if(thumbs.left.height() > thumbs.right.height()) {
+      cont = thumbs.right
     } else {
-      cont = $('.thumbs_right') 
-      this.onLeft = true
+      cont = thumbs.left
     }
     if(prepend) {
       cont.prepend($div)
@@ -66,14 +59,13 @@ var thumbs = {
   addPreview: function() {
     var $div = $('<div class="thumb"></div>')
     $div.css({
-      width: 250,
       height: 250
     })
     $div.addClass('preview')
     $div.css({
       background: '#F4F886'
     })
-    thumbs.cont.prepend($div)
+    thumbs.left.prepend($div)
   },
   preview: function(i, file) {
 		var reader = new FileReader();
@@ -116,6 +108,8 @@ var thumbs = {
   },
   init: function() {
     thumbs.cont = $('.thumbs')
+    thumbs.left = $('.thumbs_left')
+    thumbs.right = $('.thumbs_right')
     var ts = thumbs.cont.find('.thumb, .thumb img')
     ts.live('dragstart', function(e) {
       e.preventDefault()

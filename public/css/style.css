@@ -59,6 +59,7 @@ label a {
 
   position: relative;
   display: block;
+  width: 100%;
   /*
   margin: 2px;
   float: left;
@@ -649,15 +650,18 @@ transform: matrix3d(1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1);
   left:400px;
   */
   margin-left: 450px;
+  margin-right: 100px;
   margin-top: 40px;
   margin-bottom: 40px;
 }
 .thumbs_left {
   float: left;
+  width: 48%;
 }
 .thumbs_right {
   float: left;
   margin-left: 4px;
+  width: 50%;
 }
 .files .progress {
   width: 100px;
@@ -807,18 +811,16 @@ word-wrap: break-word;
 
 /* iPad only */
 @media only screen and (max-width:768px) {
-    .devices {
-        zoom: 65%;
-        margin-left: 22px;
-    }
 }
 
-/** this only loads on devices smaller than iPad */
-@media (max-width: 767px) { 
+/** this only loads on devices smaller than iPad and iPad included */
+@media (max-width: 768px) { 
     body {
         min-height: 0 !important;
+        background: none;
     }
     .content {
+        background: none;
         margin-top: 23px !important;
         margin-left: auto !important;
         margin-right: auto !important;
