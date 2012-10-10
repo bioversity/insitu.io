@@ -4,20 +4,10 @@ var thumbs = {
     var $div = $('<div class="thumb"></div>')
     $div.css({
       width: 250,
-      height: 250
+      height: 250,
+      background: 'url('+src+') no-repeat center center'
     })
-    if(src) {
-      var $img = $('<img src="'+src+'" />')
-      $img.css({
-        width: 250,
-        height: 250
-
-      })
-    }
-    if(src) $div.append($img)
     $div.append('<div class="block">Ciao Pippa</div>')
-
-
     if(prepend) {
       thumbs.cont.prepend($div)
     } else {
@@ -87,18 +77,24 @@ var thumbs = {
 		//$.data(file,preview);
   },
   addThumbPreview: function($el, src) {
-    var $img = $('<img />')
-    $img.attr('src', src)
-    $img.css({
-      width: 250,
-      height: 250
+    $el.css({
+      background: 'url('+src+') no-repeat center center'
     })
-    $el.append($img)
     $el.removeClass('preview')
     return $el
   },
   init: function() {
     thumbs.cont = $('.thumbs')
+    var ts = thumbs.cont.find('.thumb, .thumb img')
+    ts.live('dragstart', function(e) {
+      e.preventDefault()
+      e.stopPropagation()
+    })
+    ts.live('click', function(e) {
+      console.log(this)
+      e.preventDefault()
+      e.stopPropagation()
+    })
     $.getJSON('/get-serving-urls', function(data) {
       for(var i in data) {
         thumbs.addThumb(data[i])

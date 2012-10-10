@@ -55,8 +55,9 @@ label a {
 .thumbs div.thumb {
   position: relative;
   display: block;
-  margin: 5px;
+  margin: 2px;
   float: left;
+  cursor: pointer;
 
 }
 img {
@@ -663,7 +664,9 @@ transform: matrix3d(1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1);
 	left:0;
 	bottom: 0;
 	
+    /*
 	box-shadow:0 0 2px #000;
+  */
 }
 
 .progress{
@@ -673,7 +676,9 @@ transform: matrix3d(1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1);
 	left:0;
 	width:0;
 	
+  /*
 	box-shadow: 0 0 1px rgba(255, 255, 255, 0.4) inset;
+  */
 	
 	-moz-transition:0.25s;
 	-webkit-transition:0.25s;
@@ -705,7 +710,7 @@ font-size: 14px;
 position: absolute;
 bottom: 0px;
 left: 0px;
-background: #737373;
+background: #444;
 color: white;
 padding: 3px;
 
@@ -732,11 +737,11 @@ border-radius: 5px;
 }
 
 #content {
-    border-radius:8px;
     background:#fff;
     padding:15px;
 
 background: whiteSmoke;
+/*
 -moz-border-radius: 5px;
 -webkit-border-radius: 5px;
 border-radius: 5px;
@@ -744,8 +749,8 @@ border-radius: 5px;
 -moz-box-shadow: 0 2px 6px rgba(0,0,0,0.4);
 -o-box-shadow: 0 2px 6px rgba(0,0,0,0.4);
 box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+*/
 position: relative;
-font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 text-shadow: white 0px 1px 0px;
 max-width: 500px;
     

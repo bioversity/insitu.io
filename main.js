@@ -56,7 +56,7 @@ apejs.urls = {
             var options = ServingUrlOptions.Builder.withBlobKey(blobKey)
             var url = images.service.getServingUrl(options)
 
-            servingUrls.push(''+url+'=s250-c')
+            servingUrls.push(''+url+'=s500')
           } catch(e) {
             // it's not an image, it's a file!
             servingUrls.push('http://cdn1.iconfinder.com/data/icons/CrystalClear/128x128/mimetypes/unknown.png')
