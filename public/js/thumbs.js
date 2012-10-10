@@ -1,19 +1,49 @@
 var thumbs = {
   cont: null, // container
+  onLeft: true,
+  getRandomInt: function(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  },
+  
   addThumb: function(src, prepend) {
+    var maxThumbSize = 500;
+    var contWidth = thumbs.cont.width() - 100 
+
+    // make it 2 columns
+    var width = contWidth / 2
+
+    var $img = $('<img>').attr({
+      src: src
+    }).appendTo('.thumbs').css({ display: 'none' })
+
+
     var $div = $('<div class="thumb"></div>')
     $div.css({
-      width: 250,
-      height: 250,
-      background: 'url('+src+') no-repeat center center'
+      width: width,
+      height: maxThumbSize,
     })
     $div.append('<div class="block">Ciao Pippa</div>')
-    if(prepend) {
-      thumbs.cont.prepend($div)
+
+    var cont;
+    if(this.onLeft) {
+      cont = $('.thumbs_left') 
+      this.onLeft = false
     } else {
-      thumbs.cont.append($div)
+      cont = $('.thumbs_right') 
+      this.onLeft = true
+    }
+    if(prepend) {
+      cont.prepend($div)
+    } else {
+      cont.append($div)
     }
     function load() {
+      var height = thumbs.getRandomInt(200, $img.height())
+      $div.css({ 
+        height: height,
+        background: 'url('+src+') no-repeat center center'
+      })
+      /*
       var $this = $(this)
       $this.fadeIn()
       $this.animate({
@@ -21,8 +51,9 @@ var thumbs = {
         opacity: 1
       }, 300, function(){
       })
+      */
     }
-    //if(src) $img.load(load)
+    $img.load(load)
     return $div
   },
   removePreview: function(end) {

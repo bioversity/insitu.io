@@ -55,8 +55,11 @@ label a {
 .thumbs div.thumb {
   position: relative;
   display: block;
+  /*
   margin: 2px;
   float: left;
+  */
+  margin-bottom: 4px;
   cursor: pointer;
 
 }
@@ -644,6 +647,13 @@ transform: matrix3d(1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1);
   margin-left: 450px;
   margin-top: 40px;
   margin-bottom: 40px;
+}
+.thumbs_left {
+  float: left;
+}
+.thumbs_right {
+  float: left;
+  margin-left: 4px;
 }
 .files .progress {
   width: 100px;
