@@ -53,6 +53,7 @@ label a {
 }
 
 .thumbs div.thumb {
+  background-size: cover;
   position: relative;
   display: block;
   /*
