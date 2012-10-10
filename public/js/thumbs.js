@@ -41,7 +41,7 @@ var thumbs = {
       var height = thumbs.getRandomInt(200, $img.height())
       $div.css({ 
         height: height,
-        background: 'url('+src+') no-repeat center center'
+        'background-image': 'url('+src+')'
       })
       /*
       var $this = $(this)
