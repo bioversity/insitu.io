@@ -9,16 +9,14 @@ var thumbs = {
     if(src) {
       var $img = $('<img src="'+src+'" />')
       $img.css({
-        zoom: 0.8,
-        opacity: 0,
         width: 250,
         height: 250
 
       })
     }
     if(src) $div.append($img)
-
     $div.append('<div class="block">Ciao Pippa</div>')
+
 
     if(prepend) {
       thumbs.cont.prepend($div)
@@ -31,9 +29,10 @@ var thumbs = {
       $this.animate({
         zoom: 1,
         opacity: 1
-      }, 300)
+      }, 300, function(){
+      })
     }
-    if(src) $img.load(load)
+    //if(src) $img.load(load)
     return $div
   },
   removePreview: function(end) {
@@ -99,10 +98,10 @@ var thumbs = {
     return $el
   },
   init: function() {
+    thumbs.cont = $('.thumbs')
     $.getJSON('/get-serving-urls', function(data) {
-      thumbs.cont = $('.thumbs')
       for(var i in data) {
-        thumbs.addThumb(data[i] + '=s250-c')        
+        thumbs.addThumb(data[i])
       }
     })
   }

@@ -52,10 +52,12 @@ var modal = (function(){
   $overlay.hide();
   $modal.append($content, $close);
 
+
   method.init = function() {
     $('body').append($overlay, $modal);						
     $('p.copy a').click(function(e) {
-      modal.open({content: "Hows it going?"});
+           
+      modal.open({content: "<h2><b>—</b> Luca Matteis</h2><p>Thanks to Orbitz's previous sponsorship I think BARcamp Chicago is set on beer koozies for life.</p>"});
       e.preventDefault()
     })
   };
