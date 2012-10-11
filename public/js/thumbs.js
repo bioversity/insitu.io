@@ -106,6 +106,15 @@ var thumbs = {
     $el.removeClass('preview')
     return $el
   },
+  reloadFiles: function() {
+    thumbs.left.html('')
+    thumbs.right.html('')
+    $.getJSON('/get-files', function(data) {
+      for(var i in data) {
+        thumbs.addThumb(data[i].thumbUrl)
+      }
+    })
+  },
   init: function() {
     thumbs.cont = $('.thumbs')
     thumbs.left = $('.thumbs_left')
@@ -119,10 +128,7 @@ var thumbs = {
       e.preventDefault()
       e.stopPropagation()
     })
-    $.getJSON('/get-files', function(data) {
-      for(var i in data) {
-        thumbs.addThumb(data[i].thumbUrl)
-      }
-    })
+    
+    this.reloadFiles()
   }
 }

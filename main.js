@@ -21,8 +21,8 @@ apejs.urls = {
     get: function(req, res) {
       // array of modules with tests we wanna test
       var tests = [
-        images, 
-        //url
+        //images, 
+        url
       ]
 
       for(var i in tests) {
@@ -57,23 +57,48 @@ apejs.urls = {
         .find()
         .sort('createdAt', 'DESC')
         .limit(9)
-        .each(function() { 
+        .each(function(id) { 
           var obj = this
-          try {
-            var blobKey = new BlobKey(this.blobKeyString)
-            var options = ServingUrlOptions.Builder.withBlobKey(blobKey)
-            var url = images.service.getServingUrl(options)
+          if(this.blobKeyString) {
+            try {
+              var blobKey = new BlobKey(this.blobKeyString)
+              var options = ServingUrlOptions.Builder.withBlobKey(blobKey)
+              var url = images.service.getServingUrl(options)
 
-            obj.thumbUrl = ''+url+'=s500'
-          } catch(e) {
-            // it's not an image, it's a file!
-            obj.thumbUrl = 'http://cdn1.iconfinder.com/data/icons/CrystalClear/128x128/mimetypes/unknown.png'
+              obj.thumbUrl = ''+url+'=s500'
+            } catch(e) {
+              // it's not an image, it's a file!
+              obj.thumbUrl = 'http://cdn1.iconfinder.com/data/icons/CrystalClear/128x128/mimetypes/unknown.png'
+            }
+          } else if(this.url) { // it's a url
+            obj.thumbUrl = '/rest/file/datastore/' + id
           }
 
           files.push(obj)
         })
       
       print(res).json(files)
+    }
+  },
+  '/submit-link': {
+    post: function(req, res) {
+      var p = param(req)
+      var u = p('url')
+
+      var thumbUrl = images.getThumb(u)
+      if(!thumbUrl) { // maybe service is down or URL is invalid
+      }
+      // let's download the image and save it to datastore
+      // (easier than blobstore)
+      var bytes = url.fetchUrl(thumbUrl)
+
+      select('file')
+        .add({
+          createdAt: new java.util.Date(),
+          url: u,
+          image: new Blob(bytes),
+          thumbUrl: thumbUrl
+        })
     }
   },
   /**
@@ -124,6 +149,16 @@ apejs.urls = {
         url: "/rest/file/" + key
       }]
       print(res).json(ret)
+    }
+  },
+  '/rest/file/datastore/(.*)': {
+    get: function(req, res, matches) {
+      var key = googlestore.createKey('file', parseInt(matches[1], 10))
+      var file = googlestore.get(key)
+      var image = file.getProperty('image')
+        
+      res.setContentType('image/jpg');
+      res.getOutputStream().write(image.getBytes());
     }
   },
   '/rest/file/(.*)': {

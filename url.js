@@ -3,8 +3,8 @@ importPackage(java.io);
 importPackage(java.lang);
 
 exports = url = {
-  openConnection: function(url) {
-    var u = new URL(url)
+  openConnection: function(u) {
+    var u = new URL(u)
     var connection = u.openConnection()
     return connection
   },
@@ -38,6 +38,10 @@ exports = url = {
     var conn = url.openConnection(u)
     url.setPost(conn, data)
     return url.getResponse(conn)
+  },
+  fetchUrl: function(u) {
+    var bytes = com.google.appengine.api.urlfetch.URLFetchServiceFactory.getURLFetchService().fetch( new URL(u) ).getContent()
+    return bytes
   },
 
   tests: {
