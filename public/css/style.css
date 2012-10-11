@@ -141,7 +141,7 @@ form {
 
 }
 .content .logo a, .upper a{
-    color: #6EC775;
+    color: #34913B;
     font-weight: 400;
     -webkit-transition: color .3s linear;
     -moz-transition: color .3s linear;
@@ -463,10 +463,12 @@ input.text:focus {
     right: 17px;
     z-index: 1;
 }
+/*
 li.field #url {
     padding-right: 90px;
     text-align:right;
 }
+*/
 .address {
     font-size: 15px;
     color: #666;

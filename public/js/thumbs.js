@@ -116,13 +116,12 @@ var thumbs = {
       e.stopPropagation()
     })
     ts.live('click', function(e) {
-      console.log(this)
       e.preventDefault()
       e.stopPropagation()
     })
-    $.getJSON('/get-serving-urls', function(data) {
+    $.getJSON('/get-files', function(data) {
       for(var i in data) {
-        thumbs.addThumb(data[i])
+        thumbs.addThumb(data[i].thumbUrl)
       }
     })
   }

@@ -25,7 +25,7 @@
             </p>
         </h2>
         <div class="create">
-            <input type="file" id="upload_button" value="Submit Data" />
+            <button class="btn btn-custom" id="submit-data">Submit Data</button>
         </div>
         <p class="copy">© 2012 insitu.io <a href="/aiuto">Help</a> <a href="/chi-siamo">About Us</a> <!--<a href="http://blog.cibarsi.com">Blog</a>--></p>
 
@@ -36,6 +36,32 @@
       <div class="thumbs_right"></div>
     </div>
 
+<script id="form" type="tmpl">
+  <h2>Submit Link</h2>
+  <form class="submit-link" action="/submit-link" method="post">
+    <ul class="field-set">
+      <li class="field">
+          <label for="url">URL</label>
+          <input type="name" id="url" class="text" name="url" value="">
+      </li>
+    </ul>
+    <input type="submit" value="Submit" ontouchstart="" class="btn btn-custom">
+  </form>
+  <!--
+  <br>
+  <h2>OR Upload File</h2>
+  <form class="submit-link" action="/submit-link" method="post">
+    <ul class="field-set">
+      <li class="field">
+          <label for="url">URL</label>
+          <input type="name" id="url" class="text" name="url" value="">
+          <input type="file" id="upload_button" value="Submit Data" />
+      </li>
+    </ul>
+    <input type="submit" value="Submit Link" ontouchstart="" class="btn btn-custom">
+  </form>
+  -->
+</script>
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
 <script src="/js/jquery.filedrop.js"></script>

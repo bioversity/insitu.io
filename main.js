@@ -5,6 +5,7 @@ var mustache = require('./common/mustache.js')
 var gdrive = require('./gdrive.js')
 var blobstore = require('./blobstore.js')
 var images = require('./images.js')
+var url = require('./url.js')
 
 var blobService = blobstore.service
 var blobInfoFactory = blobstore.blobInfoFactory
@@ -14,6 +15,23 @@ apejs.urls = {
     get: function(req, res) {
       var html = mustache.to_html(render('skins/index.html'), {}, {})
       print(res).html(html)
+    }
+  },
+  '/tests': {
+    get: function(req, res) {
+      // array of modules with tests we wanna test
+      var tests = [
+        images, 
+        //url
+      ]
+
+      for(var i in tests) {
+        var curTest = tests[i]
+        for(var x in curTest.tests) {
+          // run the test function
+          curTest.tests[x]()
+        }
+      }
     }
   },
   '/read-headers': {
@@ -37,33 +55,25 @@ apejs.urls = {
       var files = [];
       select('file')
         .find()
-        .limit(10)
-        .values(function(values) { files = values })
-
-      print(res).json(files)
-    }
-  },
-  '/get-serving-urls': {
-    get: function(req, res) {
-      var servingUrls = [];
-      select('file')
-        .find()
         .sort('createdAt', 'DESC')
         .limit(9)
         .each(function() { 
+          var obj = this
           try {
             var blobKey = new BlobKey(this.blobKeyString)
             var options = ServingUrlOptions.Builder.withBlobKey(blobKey)
             var url = images.service.getServingUrl(options)
 
-            servingUrls.push(''+url+'=s500')
+            obj.thumbUrl = ''+url+'=s500'
           } catch(e) {
             // it's not an image, it's a file!
-            servingUrls.push('http://cdn1.iconfinder.com/data/icons/CrystalClear/128x128/mimetypes/unknown.png')
+            obj.thumbUrl = 'http://cdn1.iconfinder.com/data/icons/CrystalClear/128x128/mimetypes/unknown.png'
           }
+
+          files.push(obj)
         })
       
-      print(res).json(servingUrls)
+      print(res).json(files)
     }
   },
   /**
