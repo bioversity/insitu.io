@@ -84,9 +84,11 @@ apejs.urls = {
     post: function(req, res) {
       var p = param(req)
       var u = p('url')
+      var title = p('title')
 
       var thumbUrl = images.getThumb(u)
       if(!thumbUrl) { // maybe service is down or URL is invalid
+        return Err(res, 'Image download from service didn\'t work')
       }
       // let's download the image and save it to datastore
       // (easier than blobstore)
@@ -96,6 +98,7 @@ apejs.urls = {
         .add({
           createdAt: new java.util.Date(),
           url: u,
+          title: title,
           image: new Blob(bytes),
           thumbUrl: thumbUrl
         })
@@ -195,4 +198,7 @@ function param(request) {
     if(p) return p;
     else return false;
   }
+}
+function Err(res, msg) {
+  res.sendError(res.SC_BAD_REQUEST, msg)
 }

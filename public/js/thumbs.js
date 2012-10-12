@@ -2,51 +2,51 @@ var thumbs = {
   cont: null, // container
   left: null,
   right: null,
+  onLeft: true,
   getRandomInt: function(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   },
   
   addThumb: function(src, prepend) {
-    var maxThumbSize = 500;
+    var title = 'Ciao'
+    if($.isPlainObject(src)) {
+      var url = src.url
+      title = src.title || title
+      src = src.thumbUrl
+    }
     var $img = $('<img>').attr({
       src: src
     }).appendTo('.thumbs').css({ display: 'none' })
 
     var $div = $('<div class="thumb"></div>')
-    $div.css({
-      height: maxThumbSize
-    })
-    $div.append('<div class="block">Ciao Pippa</div>')
+    $div.append('<div class="block">'+title+'</div>')
 
-    var cont;
+    if(url) {
+      $div.click(function(e) {
+        window.location = url
+      })
+    }
 
-    if(thumbs.left.height() > thumbs.right.height()) {
+    if(!this.onLeft) {
       cont = thumbs.right
+      this.onLeft = true
     } else {
       cont = thumbs.left
+      this.onLeft = false
     }
     if(prepend) {
       cont.prepend($div)
     } else {
       cont.append($div)
     }
-    function load() {
+    $img.load(function load() {
+      var cont;
       var height = thumbs.getRandomInt(200, $img.height())
       $div.css({ 
         height: height,
         'background-image': 'url('+src+')'
       })
-      /*
-      var $this = $(this)
-      $this.fadeIn()
-      $this.animate({
-        zoom: 1,
-        opacity: 1
-      }, 300, function(){
-      })
-      */
-    }
-    $img.load(load)
+    })
     return $div
   },
   removePreview: function(end) {
@@ -101,17 +101,19 @@ var thumbs = {
   },
   addThumbPreview: function($el, src) {
     $el.css({
-      background: 'url('+src+') no-repeat center center'
+      'background-image': 'url('+src+')',
+      'background-size': 'cover'
     })
     $el.removeClass('preview')
     return $el
   },
   reloadFiles: function() {
+    thumbs.onLeft = true
     thumbs.left.html('')
     thumbs.right.html('')
     $.getJSON('/get-files', function(data) {
       for(var i in data) {
-        thumbs.addThumb(data[i].thumbUrl)
+        thumbs.addThumb(data[i])
       }
     })
   },

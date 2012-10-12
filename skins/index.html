@@ -39,7 +39,12 @@
 <script id="form" type="tmpl">
   <h2>Submit Link</h2>
   <form class="submit-link" action="/submit-link" method="post">
+    <div class="error" style="display: none"></div>
     <ul class="field-set">
+      <li class="field">
+          <label for="title">Title</label>
+          <input type="name" id="title" class="text" name="title" value="">
+      </li>
       <li class="field">
           <label for="url">URL</label>
           <input type="name" id="url" class="text" name="url" value="">

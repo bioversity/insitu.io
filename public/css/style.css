@@ -803,6 +803,11 @@ word-wrap: break-word;
     right:-7px;
 }
 
+.error {
+  padding-top: 5px;
+  color: red;
+}
+
 
 
 /* stuff in here gets only loaded on iPad 
