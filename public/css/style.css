@@ -68,6 +68,15 @@ label a {
   cursor: pointer;
 
 }
+.thumbs div.thumb:hover {
+  -webkit-box-shadow: #D90 0px 0px 6px 2px;
+  -moz-box-shadow: #d90 0px 0px 6px 2px;
+  box-shadow: #D90 0px 0px 6px 2px;
+  -webkit-transition: -webkit-box-shadow 0.3s ease-in-out;
+  -moz-transition: -moz-box-shadow 0.3s ease-in-out;
+  transition: box-shadow 0.3s ease-in-out;
+}
+
 img {
 
 /*
