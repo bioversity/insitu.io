@@ -25,3 +25,7 @@ The app is meant to be a simple interface around a Google Drive account.
 Here's a first prototype screen to show you how it may look:
 
 ![](https://raw.github.com/bioversity/insitu.io/master/screen1.png)
+
+## Link
+
+* [Changelog](wiki/Changelog)
