@@ -27,6 +27,7 @@ var thumbs = {
       })
     }
 
+    var cont;
     if(!this.onLeft) {
       cont = thumbs.right
       this.onLeft = true
@@ -39,14 +40,19 @@ var thumbs = {
     } else {
       cont.append($div)
     }
-    $img.load(function load() {
-      var cont;
-      var height = thumbs.getRandomInt(200, $img.height())
+    if($img.get(0).complete) {
+      // force load for IE
+      load.call($img.get(0))
+    }
+    function load() {
+      var $this = $(this)
+      var height = thumbs.getRandomInt(200, $this.height())
       $div.css({ 
         height: height,
         'background-image': 'url('+src+')'
       })
-    })
+    }
+    $img.load(load)
     return $div
   },
   removePreview: function(end) {
@@ -111,10 +117,17 @@ var thumbs = {
     thumbs.onLeft = true
     thumbs.left.html('')
     thumbs.right.html('')
-    $.getJSON('/get-files', function(data) {
-      for(var i in data) {
-        thumbs.addThumb(data[i])
-      }
+    thumbs.cont.find('img').remove()
+
+    $.ajax({
+      url: '/get-files',
+      dataType: 'json',
+      success: function(data) {
+        for(var i in data) {
+          thumbs.addThumb(data[i])
+        }
+      },
+      cache: false
     })
   },
   init: function() {
