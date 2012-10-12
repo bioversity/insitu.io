@@ -16,7 +16,7 @@ This is to be considered a [Minimum Viable Product](http://en.wikipedia.org/wiki
 
 ## How?
 
-A user goes to http://insitu.io and they can immediately submit content through a SUBMIT button. A little form pops open, and they can either choose to upload a file (image, PDF, excel, etc.), or they can choose to submit a link.
+A user goes to http://insitu-io.appspot.com/ and they can immediately submit content through a SUBMIT button. A little form pops open, and they can either choose to upload a file (image, PDF, excel, etc.), or they can choose to submit a link.
 
 The content is uploaded in the background into a Google Drive account, using the Google Drive API. This allows us to get metadata of the files, things such as the thumbnail images, and it allows us to use the [Drive search API](https://developers.google.com/drive/v2/reference/files/list) so that we can search inside PDF files for example. All of the Drive functionality is given to us for free, so taht we don't have to worry about processing the files ourselves.
 
@@ -26,6 +26,6 @@ Here's a first prototype screen to show you how it may look:
 
 ![](https://raw.github.com/bioversity/insitu.io/master/screen1.png)
 
-## Link
+## Links
 
-* [Changelog](wiki/Changelog)
+* [Changelog](insitu.io/wiki/Changelog)
